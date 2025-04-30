@@ -1,0 +1,16 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        x:Class="Module3.UserWindow"
+        Title="Смена пароля"
+        Width="350" Height="300" WindowStartupLocation="CenterScreen">
+    <Grid RowDefinitions="*,*,*,*,*">
+        <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">Смена пароля</TextBlock>
+        <TextBox Name="OldPasswordTextBox" Grid.Row="1" Watermark="Введите старый пароль" Width="300" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBox>
+        <TextBox Name="NewPasswordTextBox" Grid.Row="2" Watermark="Введите новый пароль" Width="300" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBox>
+        <TextBox Name="RepeatPasswordTextBox" Grid.Row="3" PasswordChar="*" Watermark="Введите повторно новый пароль" Width="300" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBox>
+        <Button Click="ChangePassword_OnClick" Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" Width="150">Изменить пароль</Button>
+    </Grid>
+</Window>

@@ -1,0 +1,24 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:models="clr-namespace:Module3.Models"
+        mc:Ignorable="d" Height="400" Width="650"
+        x:Class="Module3.AdminWindow"
+        x:DataType="models:User"
+        Title="Окно Администратора" WindowStartupLocation="CenterScreen">
+    <StackPanel Spacing="10">
+        <Button Content="Добавить пользователя" Click="AddUser_Click"/>
+        <Button Content="Редактировать выбранного" Click="EditUser_Click"/>
+        <Button Content="Снять блокировку" Click="UnblockUser_Click"/>
+        <DataGrid Name="UsersDataGrid" IsReadOnly="True" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding id}" Width="50"/>
+                <DataGridTextColumn Header="Логин" Binding="{Binding login}" Width="150"/>
+                <DataGridTextColumn Header="Последний вход" Binding="{Binding lastlogin}" Width="150"/>
+                <DataGridCheckBoxColumn Header="Заблокирован" Binding="{Binding isblocked}" Width="100"/>
+                <DataGridTextColumn Header="Неудачные попытки" Binding="{Binding failedattempts}" Width="120"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </StackPanel>
+</Window>
