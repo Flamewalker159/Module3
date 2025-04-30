@@ -23,8 +23,8 @@ public partial class UserEditWindow : Window
         
         if (_editUser != null)
         {
-            LoginTextBox.Text = _editUser.login;
-            PasswordTextBox.Text = _editUser.password;
+            LoginTextBox.Text = _editUser.Login;
+            PasswordTextBox.Text = _editUser.Password;
         }
     }
     
@@ -46,7 +46,7 @@ public partial class UserEditWindow : Window
 
             if (_editUser == null) // Добавление
             {
-                bool exists = await db.users.AnyAsync(u => u.login == login);
+                bool exists = await db.Users.AnyAsync(u => u.Login == login);
                 if (exists)
                 {
                     await MessageBoxManager.GetMessageBoxStandard(
@@ -56,19 +56,19 @@ public partial class UserEditWindow : Window
 
                 var newUser = new User
                 {
-                    login = login,
-                    password = password,
-                    roleid = 2
+                    Login = login,
+                    Password = password,
+                    RoleId = 2
                 };
-                db.users.Add(newUser);
+                db.Users.Add(newUser);
             }
             else // Редактирование
             {
-                var user = await db.users.FindAsync(_editUser.id);
+                var user = await db.Users.FindAsync(_editUser.Id);
                 if (user != null)
                 {
-                    user.login = login;
-                    user.password = password;
+                    user.Login = login;
+                    user.Password = password;
                 }
             }
 

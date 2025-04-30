@@ -21,7 +21,7 @@ public partial class AdminWindow : Window
     private async void LoadUsers()
     {
         await using var db = new AppDbContext();
-        var users = await db.users.ToListAsync();
+        var users = await db.Users.ToListAsync();
         UsersDataGrid.ItemsSource = users;
     }
 
@@ -47,11 +47,11 @@ public partial class AdminWindow : Window
         if (UsersDataGrid.SelectedItem is User selectedUser)
         {
             await using var db = new AppDbContext();
-            var user = await db.users.FindAsync(selectedUser.id);
+            var user = await db.Users.FindAsync(selectedUser.Id);
             if (user is not null)
             {
-                user.isblocked = false;
-                user.failedattempts = 0;
+                user.IsBlocked = false;
+                user.FaileDattempts = 0;
                 await db.SaveChangesAsync();
                 await MessageBoxManager.GetMessageBoxStandard(
                     "Успех", "Блокировка снята", ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Success).ShowAsync();

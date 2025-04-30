@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Module3.Models;
@@ -6,10 +7,11 @@ namespace Module3.Models;
 public class Role
 {
     [Key]
-    public int id { get; set; }
+    public int Id { get; set; }
     
     [MaxLength(100)]
-    public string name { get; set; } = "Пользователь";
+    [DefaultValue("Пользователь")]
+    public string Name { get; set; }
     
-    public List<User> users { get; set; }
+    public List<User> Users { get; set; }
 }

@@ -30,7 +30,7 @@ public partial class UserWindow : Window
                 return;
             }
 
-            if (OldPasswordTextBox.Text != _user.password)
+            if (OldPasswordTextBox.Text != _user.Password)
             {
                 await MessageBoxManager.GetMessageBoxStandard("Ошибка", "Не верный старый пароль", ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Error).ShowAsync();
@@ -44,9 +44,9 @@ public partial class UserWindow : Window
                 return;
             }
             
-            _user.password = NewPasswordTextBox.Text;
+            _user.Password = NewPasswordTextBox.Text;
             await using var db = new AppDbContext();
-            db.users.Update(_user);
+            db.Users.Update(_user);
             await db.SaveChangesAsync();
             
             await MessageBoxManager.GetMessageBoxStandard("Успех", "Пароль успешно изменен", ButtonEnum.Ok,

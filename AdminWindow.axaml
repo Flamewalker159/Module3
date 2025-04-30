@@ -13,11 +13,11 @@
         <Button Content="Снять блокировку" Click="UnblockUser_Click"/>
         <DataGrid Name="UsersDataGrid" IsReadOnly="True" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding id}" Width="50"/>
-                <DataGridTextColumn Header="Логин" Binding="{Binding login}" Width="150"/>
-                <DataGridTextColumn Header="Последний вход" Binding="{Binding lastlogin}" Width="150"/>
-                <DataGridCheckBoxColumn Header="Заблокирован" Binding="{Binding isblocked}" Width="100"/>
-                <DataGridTextColumn Header="Неудачные попытки" Binding="{Binding failedattempts}" Width="120"/>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+                <DataGridTextColumn Header="Логин" Binding="{Binding Login}" Width="150"/>
+                <DataGridTextColumn Header="Последний вход" Binding="{Binding LastLogin}" Width="150"/>
+                <DataGridCheckBoxColumn Header="Заблокирован" Binding="{Binding IsBlocked}" Width="100"/>
+                <DataGridTextColumn Header="Неудачные попытки" Binding="{Binding FaileDattempts}" Width="120"/>
             </DataGrid.Columns>
         </DataGrid>
     </StackPanel>

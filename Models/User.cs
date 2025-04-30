@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -7,21 +8,25 @@ namespace Module3.Models;
 public class User
 {
     [Key]
-    public int id { get; set; }
+    public int Id { get; set; }
     
     [Required]
     [MaxLength(100)]
-    public string login { get; set; }
+    public string Login { get; set; }
     
     [Required]
     [MaxLength(100)]
-    public string password { get; set; }
-    public DateTime? lastlogin { get; set; }
-    public bool isblocked { get; set; } = false;
-    public int failedattempts { get; set; } = 0;
+    public string Password { get; set; }
+    public DateTime? LastLogin { get; set; }
+    
+    [DefaultValue(false)]
+    public bool IsBlocked { get; set; }
+    
+    [DefaultValue(0)]
+    public int FaileDattempts { get; set; }
 
-    public int roleid { get; set; }
+    public int RoleId { get; set; }
     
-    [ForeignKey("roleid")]
-    public Role role { get; set; }
+    [ForeignKey("RoleId")]
+    public Role Role { get; set; }
 }
