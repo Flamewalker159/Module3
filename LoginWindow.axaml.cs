@@ -39,26 +39,28 @@ public partial class LoginWindow : Window
                     MsBox.Avalonia.Enums.Icon.Error).ShowAsync();
                 return;
             }
-
-            if (user.password != password && user.failedattempts < 3)
+            
+            if (user.password != password)
             {
                 user.failedattempts++;
+
+                if (user.failedattempts >= 3)
+                {
+                    user.isblocked = true;
+                    await db.SaveChangesAsync();
+                    await MessageBoxManager.GetMessageBoxStandard("Ошибка",
+                        "Вы заблокированы из-за неверного пароля", ButtonEnum.Ok,
+                        MsBox.Avalonia.Enums.Icon.Forbidden).ShowAsync();
+                    return;
+                }
+
                 await db.SaveChangesAsync();
                 await MessageBoxManager.GetMessageBoxStandard("Ошибка",
-                    "Вы ввели не верный пароль", ButtonEnum.Ok,
+                    $"Неверный пароль. Попыток осталось: {3 - user.failedattempts}", ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Forbidden).ShowAsync();
                 return;
             }
-
-            if (user.failedattempts == 3)
-            {
-                user.isblocked = true;
-                await db.SaveChangesAsync();
-                await MessageBoxManager.GetMessageBoxStandard("Ошибка", "Вы заблокированы из-за неверного введенного пароля", ButtonEnum.Ok, 
-                    MsBox.Avalonia.Enums.Icon.Forbidden).ShowAsync();
-                return;
-            }
-
+            
             if (user.isblocked)
             {
                 await MessageBoxManager.GetMessageBoxStandard("Ошибка",
@@ -67,7 +69,7 @@ public partial class LoginWindow : Window
                 return;
             }
 
-            if (user.lastlogin.HasValue && (DateTime.Now - user.lastlogin!.Value).Days > DateTime.Now.Month)
+            if (user.lastlogin.HasValue && (DateTime.Now - user.lastlogin!.Value).Days > 30)
             {
                 user.isblocked = true;
                 await db.SaveChangesAsync();
