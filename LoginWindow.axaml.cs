@@ -53,7 +53,7 @@ public partial class LoginWindow : Window
                         MsBox.Avalonia.Enums.Icon.Forbidden).ShowAsync();
                     return;
                 }
-
+                
                 await db.SaveChangesAsync();
                 await MessageBoxManager.GetMessageBoxStandard("Ошибка",
                     $"Неверный пароль. Попыток осталось: {3 - user.failedattempts}", ButtonEnum.Ok,

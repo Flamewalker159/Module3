@@ -53,12 +53,12 @@ public partial class UserEditWindow : Window
                         "Ошибка", "Пользователь с таким логином уже существует", ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error).ShowAsync();
                     return;
                 }
-
+                
                 var newUser = new User
                 {
                     login = login,
                     password = password,
-                    roleid = 2
+                    role = (await db.roles.FirstOrDefaultAsync(r => r.name == "Пользователь"))!
                 };
                 db.users.Add(newUser);
             }

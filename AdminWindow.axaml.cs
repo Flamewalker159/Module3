@@ -21,8 +21,7 @@ public partial class AdminWindow : Window
     private async void LoadUsers()
     {
         await using var db = new AppDbContext();
-        var users = await db.users.ToListAsync();
-        UsersDataGrid.ItemsSource = users;
+        UsersDataGrid.ItemsSource = await db.users.ToListAsync();
     }
 
     private async void AddUser_Click(object? sender, RoutedEventArgs e)
