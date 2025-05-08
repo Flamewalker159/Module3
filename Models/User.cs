@@ -17,6 +17,8 @@ public class User
     [MaxLength(100)]
     public string password { get; set; }
     public DateTime? lastlogin { get; set; }
+    
+    public bool isfirstlogin { get; set; }
     public bool isblocked { get; set; } = false;
     public int failedattempts { get; set; } = 0;
 

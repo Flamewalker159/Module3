@@ -45,12 +45,15 @@ public partial class UserWindow : Window
             }
             
             _user.password = NewPasswordTextBox.Text;
+            _user.isfirstlogin = false;
             await using var db = new AppDbContext();
             db.users.Update(_user);
             await db.SaveChangesAsync();
             
             await MessageBoxManager.GetMessageBoxStandard("Успех", "Пароль успешно изменен", ButtonEnum.Ok,
                 MsBox.Avalonia.Enums.Icon.Success).ShowAsync();
+            
+            Close();
         }
         catch (Exception exception)
         {

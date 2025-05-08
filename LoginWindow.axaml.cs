@@ -80,7 +80,11 @@ public partial class LoginWindow : Window
             }
 
             user.failedattempts = 0;
+            if (user.lastlogin == null) 
+                user.isfirstlogin = true;
+
             user.lastlogin = DateTime.Now.ToUniversalTime();
+
             await db.SaveChangesAsync();
 
             await MessageBoxManager.GetMessageBoxStandard("Успех", "Вы успешно авторизовались", ButtonEnum.Ok,
@@ -92,7 +96,8 @@ public partial class LoginWindow : Window
                     await new AdminWindow().ShowDialog(this);
                     break;
                 case "Пользователь":
-                    await new UserWindow(user).ShowDialog(this);
+                    if(user.isfirstlogin)
+                        await new UserWindow(user).ShowDialog(this);
                     break;
             }
         }
