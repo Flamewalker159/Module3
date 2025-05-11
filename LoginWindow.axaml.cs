@@ -30,7 +30,7 @@ public partial class LoginWindow : Window
             var password = PasswordTextBox.Text.Trim();
 
             await using var db = new AppDbContext();
-            var user = await db.users.Include(user => user.role).FirstOrDefaultAsync(u => u.login == login);
+            var user = await db.Users.FirstOrDefaultAsync(u => u.Login == login);
 
             if (user == null)
             {
@@ -39,29 +39,29 @@ public partial class LoginWindow : Window
                     MsBox.Avalonia.Enums.Icon.Error).ShowAsync();
                 return;
             }
-            
-            if (user.password != password)
-            {
-                user.failedattempts++;
 
-                if (user.failedattempts >= 3)
+            if (user.Password != password)
+            {
+                user.CounterFailed++;
+
+                if (user.CounterFailed >= 3)
                 {
-                    user.isblocked = true;
+                    user.IsBlocked = true;
                     await db.SaveChangesAsync();
                     await MessageBoxManager.GetMessageBoxStandard("Ошибка",
                         "Вы заблокированы из-за неверного пароля", ButtonEnum.Ok,
                         MsBox.Avalonia.Enums.Icon.Forbidden).ShowAsync();
                     return;
                 }
-                
+
                 await db.SaveChangesAsync();
                 await MessageBoxManager.GetMessageBoxStandard("Ошибка",
-                    $"Неверный пароль. Попыток осталось: {3 - user.failedattempts}", ButtonEnum.Ok,
+                    $"Неверный пароль. Попыток осталось: {3 - user.CounterFailed}", ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Forbidden).ShowAsync();
                 return;
             }
-            
-            if (user.isblocked)
+
+            if (user.IsBlocked)
             {
                 await MessageBoxManager.GetMessageBoxStandard("Ошибка",
                     "Вы заблокированы. Обратитесь к администратору.", ButtonEnum.Ok,
@@ -69,9 +69,9 @@ public partial class LoginWindow : Window
                 return;
             }
 
-            if (user.lastlogin.HasValue && (DateTime.Now - user.lastlogin!.Value).Days > 30)
+            if (user.LastLogin.HasValue && (DateTime.Now - user.LastLogin!.Value).Days > 30)
             {
-                user.isblocked = true;
+                user.IsBlocked = true;
                 await db.SaveChangesAsync();
                 await MessageBoxManager.GetMessageBoxStandard("Ошибка",
                     "Вы заблокированы из-за длительного отсутствия. Обратитесь к администратору.", ButtonEnum.Ok,
@@ -79,25 +79,25 @@ public partial class LoginWindow : Window
                 return;
             }
 
-            user.failedattempts = 0;
-            if (user.lastlogin == null) 
-                user.isfirstlogin = true;
+            user.CounterFailed = 0;
+            if (user.LastLogin == null)
+                user.IsFirstLogin = true;
 
-            user.lastlogin = DateTime.Now.ToUniversalTime();
+            user.LastLogin = DateTime.Now.ToUniversalTime();
 
             await db.SaveChangesAsync();
 
             await MessageBoxManager.GetMessageBoxStandard("Успех", "Вы успешно авторизовались", ButtonEnum.Ok,
                 MsBox.Avalonia.Enums.Icon.Success).ShowAsync();
-            
-            switch (user.role.name)
+
+            switch (user.IsAdmin)
             {
-                case "Администратор":
+                case true:
                     await new AdminWindow().ShowDialog(this);
                     break;
-                case "Пользователь":
-                    if(user.isfirstlogin)
-                        await new UserWindow(user).ShowDialog(this);
+                case false:
+                    if (user.IsFirstLogin)
+                        await new ChangePasswordWindow(user).ShowDialog(this);
                     break;
             }
         }

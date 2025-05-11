@@ -13,9 +13,11 @@ public class AppDbContext : DbContext
         : base(options)
     {
     }
-    public DbSet<User> users { get; set; }
-    public DbSet<Role> roles { get; set; }
+
+    public DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=module3;Username=postgres;Password=12345");
+    {
+        optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=module3;Username=postgres;Password=12345");
+    }
 }

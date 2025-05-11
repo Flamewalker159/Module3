@@ -6,8 +6,8 @@
         x:Class="Module3.UserEditWindow"
         Title="Пользователь" WindowStartupLocation="CenterScreen">
     <StackPanel Spacing="10">
-        <TextBox Name="LoginTextBox" Watermark="Логин"/>
-        <TextBox Name="PasswordTextBox" Watermark="Пароль"/>
-        <Button Content="Сохранить" Click="Save_Click"/>
+        <TextBox Name="LoginTextBox" Watermark="Логин" />
+        <TextBox Name="PasswordTextBox" PasswordChar="*" Watermark="Пароль" />
+        <Button Content="Сохранить" Click="Save_Click" />
     </StackPanel>
 </Window>
