@@ -5,6 +5,7 @@
       <map>
         <entry key="AdminWindow.axaml" value="Module3.csproj" />
         <entry key="App.axaml" value="Module3.csproj" />
+        <entry key="ChangePasswordWindow.axaml" value="Module3.csproj" />
         <entry key="LoginWindow.axaml" value="Module3.csproj" />
         <entry key="MainWindow.axaml" value="Module3.csproj" />
         <entry key="UserEditWindow.axaml" value="Module3.csproj" />
