@@ -1,7 +1,7 @@
-﻿using Avalonia;
+﻿using System;
+using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Avalonia.Markup.Xaml;
 using Microsoft.EntityFrameworkCore;
 using Module3.Data;
 using Module3.Models;
@@ -17,45 +17,60 @@ public partial class AdminWindow : Window
         InitializeComponent();
         LoadUsers();
     }
-    
-    private async void LoadUsers()
+
+    private async Task LoadUsers()
     {
         await using var db = new AppDbContext();
-        UsersDataGrid.ItemsSource = await db.users.ToListAsync();
+        UsersListBox.ItemsSource = await db.Users.ToListAsync();
     }
 
     private async void AddUser_Click(object? sender, RoutedEventArgs e)
     {
-        var window = new UserEditWindow(null); // null → режим добавления
+        var window = new UserEditWindow(null); // null -> режим добавления
         await window.ShowDialog(this);
-        LoadUsers();
+        await LoadUsers();
     }
 
     private async void EditUser_Click(object? sender, RoutedEventArgs e)
     {
-        if (UsersDataGrid.SelectedItem is User selectedUser)
+        if (UsersListBox.SelectedItem is User selectedUser)
         {
             var window = new UserEditWindow(selectedUser);
             await window.ShowDialog(this);
-            LoadUsers();
+            await LoadUsers();
         }
     }
 
     private async void UnblockUser_Click(object? sender, RoutedEventArgs e)
     {
-        if (UsersDataGrid.SelectedItem is User selectedUser)
+        try
         {
-            await using var db = new AppDbContext();
-            var user = await db.users.FindAsync(selectedUser.id);
-            if (user is not null)
+            if (UsersListBox.SelectedItem is User selectedUser)
             {
-                user.isblocked = false;
-                user.failedattempts = 0;
+                selectedUser.IsBlocked = false;
+                selectedUser.CounterFailed = 0;
+
+                await using var db = new AppDbContext();
+                db.Users.Update(selectedUser);
                 await db.SaveChangesAsync();
+
                 await MessageBoxManager.GetMessageBoxStandard(
                     "Успех", "Блокировка снята", ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Success).ShowAsync();
-                LoadUsers();
+
+                await LoadUsers();
             }
+            else
+            {
+                await MessageBoxManager.GetMessageBoxStandard("Ошибка",
+                    "Выберите пользователя", ButtonEnum.Ok,
+                    MsBox.Avalonia.Enums.Icon.Warning).ShowAsync();
+            }
+        }
+        catch (Exception exception)
+        {
+            await MessageBoxManager.GetMessageBoxStandard("Ошибка",
+                exception.Message, ButtonEnum.Ok,
+                MsBox.Avalonia.Enums.Icon.Error).ShowAsync();
         }
     }
 }

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Linq;
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
-using Avalonia.Markup.Xaml;
 using Microsoft.EntityFrameworkCore;
 using Module3.Data;
 using Module3.Models;
@@ -20,14 +17,14 @@ public partial class UserEditWindow : Window
     {
         InitializeComponent();
         _editUser = user;
-        
+
         if (_editUser != null)
         {
-            LoginTextBox.Text = _editUser.login;
-            PasswordTextBox.Text = _editUser.password;
+            LoginTextBox.Text = _editUser.Login;
+            PasswordTextBox.Text = _editUser.Password;
         }
     }
-    
+
     private async void Save_Click(object? sender, RoutedEventArgs e)
     {
         try
@@ -38,7 +35,7 @@ public partial class UserEditWindow : Window
                     "Ошибка", "Заполните все поля", ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Warning).ShowAsync();
                 return;
             }
-        
+
             var login = LoginTextBox.Text.Trim();
             var password = PasswordTextBox.Text.Trim();
 
@@ -46,29 +43,29 @@ public partial class UserEditWindow : Window
 
             if (_editUser == null) // Добавление
             {
-                bool exists = await db.users.AnyAsync(u => u.login == login);
+                var exists = await db.Users.AnyAsync(u => u.Login == login);
                 if (exists)
                 {
                     await MessageBoxManager.GetMessageBoxStandard(
-                        "Ошибка", "Пользователь с таким логином уже существует", ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error).ShowAsync();
+                        "Ошибка", "Пользователь с таким логином уже существует", ButtonEnum.Ok,
+                        MsBox.Avalonia.Enums.Icon.Error).ShowAsync();
                     return;
                 }
-                
+
                 var newUser = new User
                 {
-                    login = login,
-                    password = password,
-                    role = (await db.roles.FirstOrDefaultAsync(r => r.name == "Пользователь"))!
+                    Login = login,
+                    Password = password
                 };
-                db.users.Add(newUser);
+                db.Users.Add(newUser);
             }
             else // Редактирование
             {
-                var user = await db.users.FindAsync(_editUser.id);
+                var user = await db.Users.FindAsync(_editUser.Id);
                 if (user != null)
                 {
-                    user.login = login;
-                    user.password = password;
+                    user.Login = login;
+                    user.Password = password;
                 }
             }
 

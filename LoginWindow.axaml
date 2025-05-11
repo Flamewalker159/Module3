@@ -7,8 +7,13 @@
         Title="Авторизация" WindowStartupLocation="CenterScreen">
     <Grid RowDefinitions="*,*,*,*">
         <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">Авторизация</TextBlock>
-        <TextBox Name="LoginTextBox" Grid.Row="1" Watermark="Введите логин" Width="300" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBox>
-        <TextBox Name="PasswordTextBox" Grid.Row="2" PasswordChar="*" Watermark="Введите пароль" Width="300" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBox>
-        <Button Click="Login_OnClick" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" Width="100">Войти</Button>
+        <TextBox Name="LoginTextBox" Grid.Row="1" Watermark="Введите логин" Width="300" HorizontalAlignment="Center"
+                 VerticalAlignment="Center" />
+        <TextBox Name="PasswordTextBox" Grid.Row="2" PasswordChar="*" Watermark="Введите пароль" Width="300"
+                 HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <Button Click="Login_OnClick" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center"
+                HorizontalContentAlignment="Center" Width="100">
+            Войти
+        </Button>
     </Grid>
 </Window>

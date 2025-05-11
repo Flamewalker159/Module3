@@ -8,10 +8,11 @@ using MsBox.Avalonia.Enums;
 
 namespace Module3;
 
-public partial class UserWindow : Window
+public partial class ChangePasswordWindow : Window
 {
     private readonly User _user;
-    public UserWindow(User user)
+
+    public ChangePasswordWindow(User user)
     {
         InitializeComponent();
         _user = user;
@@ -30,7 +31,7 @@ public partial class UserWindow : Window
                 return;
             }
 
-            if (OldPasswordTextBox.Text != _user.password)
+            if (OldPasswordTextBox.Text != _user.Password)
             {
                 await MessageBoxManager.GetMessageBoxStandard("Ошибка", "Не верный старый пароль", ButtonEnum.Ok,
                     MsBox.Avalonia.Enums.Icon.Error).ShowAsync();
@@ -43,16 +44,16 @@ public partial class UserWindow : Window
                     MsBox.Avalonia.Enums.Icon.Warning).ShowAsync();
                 return;
             }
-            
-            _user.password = NewPasswordTextBox.Text;
-            _user.isfirstlogin = false;
+
+            _user.Password = NewPasswordTextBox.Text.Trim();
+            _user.IsFirstLogin = false;
             await using var db = new AppDbContext();
-            db.users.Update(_user);
+            db.Users.Update(_user);
             await db.SaveChangesAsync();
-            
+
             await MessageBoxManager.GetMessageBoxStandard("Успех", "Пароль успешно изменен", ButtonEnum.Ok,
                 MsBox.Avalonia.Enums.Icon.Success).ShowAsync();
-            
+
             Close();
         }
         catch (Exception exception)

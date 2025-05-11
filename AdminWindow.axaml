@@ -3,22 +3,31 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:models="clr-namespace:Module3.Models"
-        mc:Ignorable="d" Height="400" Width="650"
+        mc:Ignorable="d" Width="600" Height="400"
         x:Class="Module3.AdminWindow"
         x:DataType="models:User"
         Title="Окно Администратора" WindowStartupLocation="CenterScreen">
-    <StackPanel Spacing="10">
-        <Button Content="Добавить пользователя" Click="AddUser_Click"/>
-        <Button Content="Редактировать выбранного" Click="EditUser_Click"/>
-        <Button Content="Снять блокировку" Click="UnblockUser_Click"/>
-        <DataGrid Name="UsersDataGrid" IsReadOnly="True" AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding id}" Width="50"/>
-                <DataGridTextColumn Header="Логин" Binding="{Binding login}" Width="150"/>
-                <DataGridTextColumn Header="Последний вход" Binding="{Binding lastlogin}" Width="150"/>
-                <DataGridCheckBoxColumn Header="Заблокирован" Binding="{Binding isblocked}" Width="100"/>
-                <DataGridTextColumn Header="Неудачные попытки" Binding="{Binding failedattempts}" Width="120"/>
-            </DataGrid.Columns>
-        </DataGrid>
+    <StackPanel Spacing="10" Margin="10">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10">
+            <Button Content="Добавить пользователя" HorizontalContentAlignment="Center" Width="190" Click="AddUser_Click" />
+            <Button Content="Редактировать выбранного" HorizontalContentAlignment="Center" Width="210" Click="EditUser_Click" />
+            <Button Content="Снять блокировку" HorizontalContentAlignment="Center" Width="150" Click="UnblockUser_Click" />
+        </StackPanel>
+
+        <Grid ColumnDefinitions="2*,1*" Margin="1,10,0,0">
+            <TextBlock Text="Логин" FontWeight="Bold" Grid.Column="0" />
+            <TextBlock Text="Заблокирован" FontWeight="Bold" Grid.Column="1" HorizontalAlignment="Center" />
+        </Grid>
+
+        <ListBox Name="UsersListBox" SelectionMode="Single" Height="260">
+            <ListBox.ItemTemplate>
+                <DataTemplate x:DataType="models:User">
+                    <Grid ColumnDefinitions="2*,1*">
+                        <TextBlock Text="{Binding Login}" Grid.Column="0" />
+                        <TextBlock Text="{Binding IsBlocked}" Grid.Column="1" HorizontalAlignment="Center" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </StackPanel>
 </Window>
