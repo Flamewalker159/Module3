@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:models="clr-namespace:Module3.Models"
         mc:Ignorable="d" Width="400" Height="400"
-        x:Class="Module3.AdminWindow"
+        x:Class="Module3.Views.AdminWindow"
         x:DataType="models:User"
         Title="Окно Администратора" WindowStartupLocation="CenterScreen">
     <StackPanel Spacing="10" Margin="10">

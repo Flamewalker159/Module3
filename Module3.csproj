@@ -22,4 +22,27 @@
         <PackageReference Include="MessageBox.Avalonia" Version="3.2.0"/>
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4"/>
     </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Views\AdminWindow.axaml.cs">
+        <DependentUpon>AdminWindow.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\ChangePasswordWindow.axaml.cs">
+        <DependentUpon>ChangePasswordWindow.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\LoginWindow.axaml.cs">
+        <DependentUpon>LoginWindow.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="App.axaml.cs">
+        <DependentUpon>App.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Views\UserEditWindow.axaml.cs">
+        <DependentUpon>UserEditWindow.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
 </Project>

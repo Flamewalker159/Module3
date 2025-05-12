@@ -7,7 +7,7 @@ using Module3.Models;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Enums;
 
-namespace Module3;
+namespace Module3.Views;
 
 public partial class UserEditWindow : Window
 {
