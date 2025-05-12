@@ -1,0 +1,63 @@
+ИмяКомпании.UserManagementApp
+
+🧱 Элементы управления (Controls)
+<Button Content="Нажми меня" Click="OnClick" Width="100"/>
+<TextBox Watermark="Введите текст" Width="200"/>
+<CheckBox Content="Согласен" IsChecked="True"/>
+<ComboBox Items="{Binding Список}" SelectedItem="{Binding ВыбранныйЭлемент}"/>
+<ListBox Items="{Binding Элементы}" SelectedItem="{Binding ВыбранныйЭлемент}"/>
+
+📐 Контейнеры компоновки (Layout Containers)
+<StackPanel Orientation="Vertical" Spacing="10">
+    <!-- Элементы -->
+</StackPanel>
+
+<WrapPanel Orientation="Horizontal" ItemSpacing="10">
+    <!-- Элементы с автоматическим переносом -->
+</WrapPanel>
+
+<Grid>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="2*"/>
+        <ColumnDefinition Width="1*"/>
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <!-- Элементы с указанием Grid.Row и Grid.Column -->
+</Grid>
+
+🔗 Привязка данных (Data Binding)
+<TextBlock Text="{Binding Имя}"/>
+<TextBox Text="{Binding Ввод, Mode=TwoWay}"/>
+<CheckBox IsChecked="{Binding Флаг}"/>
+
+📐 Пример использования DataGrid с ручным определением колонок
+<Application.Styles>
+    <FluentTheme />
+    <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+</Application.Styles>
+
+<DataGrid Items="{Binding People}"
+          AutoGenerateColumns="False"
+          IsReadOnly="True"
+          CanUserReorderColumns="True"
+          CanUserResizeColumns="True"
+          CanUserSortColumns="False"
+          GridLinesVisibility="All"
+          BorderThickness="1"
+          BorderBrush="Gray">
+  <DataGrid.Columns>
+    <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}" Width="2*"/>
+    <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}" Width="2*"/>
+    <DataGridCheckBoxColumn Header="Активен" Binding="{Binding IsActive}" Width="*"/>
+  </DataGrid.Columns>
+</DataGrid>
+
+📦 Ресурсы и изображения (Assets and Images)
+xml
+Копировать
+Редактировать
+<Image Source="avares://ИмяСборки/Assets/изображение.png" Width="100" Height="100"/>
+
